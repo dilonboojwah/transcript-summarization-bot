@@ -62,6 +62,7 @@ This project highlights full-stack development skills.
 
 ![TSB Code Example of Summary Detail](src/assets/fullstack-screenshots/TSBCodeSummaryDetail.png)
 *Code example of Summary Details page*
+
 ---
 
 ## Usage
@@ -78,7 +79,7 @@ For viewing/testing purposes, use the following dummy account to log in:
 
 ### Testing with a Sample Document
 You can download this sample document to upload in the app:
-[Download TSB Test Doc](public\750wordTSBtestdoc_PElandscape.pdf)
+[Download TSB Test Doc](/750wordTSBtestdoc_PElandscape.pdf)
 
 ### App Workflow
 1. **Login/Sign Up**:
@@ -107,7 +108,7 @@ You can download this sample document to upload in the app:
 ### Frontend
 
 ![TSB Figma Screen Designs](src/assets/fullstack-screenshots/TSBFigmaScreenDesigns.png)
-*Figma mockups of all the main screens*
+*Figma mockups of all the screens*
 
 | Component/Technology | Description                                                                                     |
 |-----------------------|-------------------------------------------------------------------------------------------------|
