@@ -4,7 +4,9 @@ A full-stack web application that allows users to submit transcripts for summari
 
 This project highlights full-stack development skills - building a complete end-to-end system with React (Tailwind CSS), Supabase, and Python FastAPI.
 
-*link to access live app is in App Usage section*
+<div style={{ color: "green", fontWeight: "bold" }}>
+  link to access live app is in App Usage section
+</div>
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
