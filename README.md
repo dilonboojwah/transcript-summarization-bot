@@ -107,7 +107,7 @@ You can download this sample document to upload in the app:
 
 ### Frontend
 
-![TSB Figma Screen Designs](src/assets/fullstack-screenshots/TSBFigmaScreenDesigns.png)
+![TSB Figma Screen Designs]
 *Figma mockups of all the screens*
 
 | Component/Technology | Description                                                                                     |
