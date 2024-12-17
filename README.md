@@ -4,8 +4,6 @@ A full-stack web application that allows users to submit transcripts for summari
 
 This project highlights full-stack development skills - building a complete end-to-end system with React (Tailwind CSS), Supabase, and Python FastAPI.
 
-<span style="color: green;">*link to access live app is in App Usage section*</span>
-
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Features](#features)
@@ -19,11 +17,11 @@ This project highlights full-stack development skills - building a complete end-
 
 The app allows users to:
 - Submit transcripts that are summarized using OpenAI API
-- View and delete their past transcripts and summaries
-- Manage their account with full authentication using Supabase
+- View and delete their past transcripts & summaries
+- Manage their account with authentication using Supabase
 
 The project showcases:
-- A robust frontend built with React and styled using Tailwind CSS
+- A frontend built with React and styled using Tailwind CSS
 - A serverless backend using Python FastAPI hosted on Vercel
 - Real-time database interactions powered by Supabase
 <br>
@@ -50,13 +48,13 @@ The project showcases:
 
 ### **Transcript Submission and Summarization**
 - Accepts file uploads (PDF and TXT formats)
-- Sends transcript data to the OpenAI API for summarization
+- Sends transcript data to OpenAI API for summarization
 - Integrates OpenAI's API to generate structured and formatted summaries for submitted transcripts
 
 ### **Library Management**
-- Stores both original transcripts and summaries in Supabase
-- Displays past transcripts and summaries in a visually appealing library
-- Allows users to download original files and delete unwanted summaries
+- Stores original transcripts and summaries in Supabase
+- Displays past transcripts and summaries in a library
+- Allows users to download original files and delete summaries
 
 ### **Dynamic Summary Details**
 - Each summary is displayed on a separate page with formatted text and relevant metadata (word count, date uploaded, etc.)
@@ -73,7 +71,7 @@ The live app is hosted on **Vercel** and can be accessed via the following link:
 
 [**Transcript Summarization Bot on Vercel**](https://tsb-hazel.vercel.app/)
 
-### Dummy Account Information
+### Dummy Account Login Info
 For viewing/testing purposes, use the following dummy account to log in:
 - **Email**: hashira@boojwah.com
 - **Password**: *welovecoding*
