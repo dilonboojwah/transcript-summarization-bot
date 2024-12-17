@@ -50,13 +50,21 @@ module.exports = {
     },
   },
   plugins: [],
-  // Add custom utilities for scrollbars
   corePlugins: {
     scrollbarWidth: true, // Enable scrollbar utilities
   },
   variants: {
     extend: {
-      scrollbar: ['rounded'], // Optionally add rounded scrollbars if needed
+      scrollbar: ["rounded"], // Optionally add rounded scrollbars if needed
     },
   },
+  // Safelist to prevent Tailwind from purging specific dynamic classes
+  safelist: [
+    "w-[150px]",
+    "bg-[#FCFCFD]",
+    "border",
+    "border-purple-500",
+    "text-[#161b26]",
+    "font-light",
+  ],
 };
