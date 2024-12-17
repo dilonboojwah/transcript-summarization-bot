@@ -39,7 +39,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",  # Frontend during development
-        "https://your-vercel-app.vercel.app",  # Production Vercel frontend
+        "https://tsb-hazel.vercel.app",  # Production Vercel frontend
     ],
     allow_credentials=True,
     allow_methods=["*"],

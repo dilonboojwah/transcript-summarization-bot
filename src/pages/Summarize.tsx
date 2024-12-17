@@ -55,8 +55,8 @@ const Summarize: React.FC = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("http://127.0.0.1:8000/upload", { // Replace with "http://127.0.0.1:8000/upload" if I want to test locally
-
+      const response = await fetch(`${process.env.TSB_BACKEND_URL}/upload`, // Replace with "http://127.0.0.1:8000/upload" if I want to test locally
+      { 
         method: "POST",
         body: formData,
       });
