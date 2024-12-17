@@ -1,6 +1,7 @@
 # Transcript Summarization Bot (TSB)
 
-A full-stack web application that allows users to submit transcripts for summarization using the OpenAI API. Users can view and delete their past submissions. This project demonstrates expertise in building a complete end-to-end system with React (Tailwind CSS), Supabase, and Python FastAPI.
+A full-stack web application that allows users to submit transcripts for summarization using the OpenAI API. Users can view and delete their past submissions.
+This project demonstrates expertise in building a complete end-to-end system with React (Tailwind CSS), Supabase, and Python FastAPI.
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
@@ -25,6 +26,7 @@ The project showcases:
   
 This project highlights full-stack development skills.
 <br>
+
 ![TSB App Sign-In Page](src/assets/fullstack-screenshots/TSBAppSignIn.png)
 *Sign-In page where users log in with their credentials*
 
@@ -58,6 +60,8 @@ This project highlights full-stack development skills.
 ### **Dynamic Summary Details**
 - Each summary is displayed on a separate page with formatted text and relevant metadata (word count, date uploaded, etc.)
 
+![TSB Code Example of Summary Detail](src/assets/fullstack-screenshots/TSBCodeSummaryDetail.png)
+*Code example of Summary Details page*
 ---
 
 ## Usage
@@ -70,11 +74,11 @@ The app is hosted on **Vercel** and can be accessed via the following link:
 ### Dummy Account Information
 For viewing/testing purposes, use the following dummy account to log in:
 - **Email**: hashira@boojwah.com
-- **Password**: welovecoding
+- **Password**: *welovecoding*
 
 ### Testing with a Sample Document
-You can download the sample document below to upload in the app:
-[Download Sample PDF](https://your-vercel-app.vercel.app/sample-docs/750wordTSBtestdoc_PElandscape.pdf)
+You can download this sample document to upload in the app:
+[Download TSB Test Doc](public\750wordTSBtestdoc_PElandscape.pdf)
 
 ### App Workflow
 1. **Login/Sign Up**:
@@ -102,6 +106,9 @@ You can download the sample document below to upload in the app:
 
 ### Frontend
 
+![TSB Figma Screen Designs](src/assets/fullstack-screenshots/TSBFigmaScreenDesigns.png)
+*Figma mockups of all the main screens*
+
 | Component/Technology | Description                                                                                     |
 |-----------------------|-------------------------------------------------------------------------------------------------|
 | **React**            | Handles the UI, component rendering, and state management                                       |
@@ -112,12 +119,9 @@ You can download the sample document below to upload in the app:
   - Built in Figma and implemented via `tailwind.config.js`
   - Includes custom fonts (`Poppins`, `Nasalization`), colors, and gradients for a modern, polished look
   - Reusable utility classes streamline layouts, buttons, and typography
-<br>
+
 ![TSB Figma Design Library](src/assets/fullstack-screenshots/TSBFigmaDesignLibrary.png)
 *Figma design library showcasing reusable UI components and design system.*
-
-![TSB Figma Screen Designs](src/assets/fullstack-screenshots/TSBFigmaScreenDesigns.png)
-*Figma mockups of all the main screens*
   
 - **Key Components**
   - `AuthLayout.tsx` and `DashboardLayout.tsx`: scalable structure for authentication and dashboard pages
@@ -139,7 +143,7 @@ You can download the sample document below to upload in the app:
 - **OpenAI Integration**
   - Summarizes uploaded transcripts using the OpenAI API
   - Configured system instructions and user prompt for structured,concise output
-<br>
+
 ![TSB OpenAI Interface](src/assets/fullstack-screenshots/TSBOpenAIInterface.png)
 *Integration of the OpenAI API used for generating structured summaries.*
 
@@ -151,7 +155,7 @@ You can download the sample document below to upload in the app:
 | Component/Technology   | Description                                                                                   |
 |-------------------------|-----------------------------------------------------------------------------------------------|
 | **Supabase**            | Handles user authentication and stores user summaries                                         |
-<br>
+
 ![TSB Supabase Database Schema](src/assets/fullstack-screenshots/TSBSupabaseDatabaseSchema.png)
 *Supabase overall database structure*
 - **Authentication**
@@ -160,7 +164,7 @@ You can download the sample document below to upload in the app:
 - **Summary Storage**
   - Summaries, original text, and file metadata are securely stored in a `summaries` table
   - Organized per user to ensure privacy
-<br>
+
 ![TSB Supabase Summaries Table](src/assets/fullstack-screenshots/TSBSupabaseSummaries.png)
 *Supabase 'summaries' table storing uploaded transcripts, summaries, and metadata*
 
