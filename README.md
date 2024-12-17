@@ -1,13 +1,15 @@
 # Transcript Summarization Bot (TSB)
 
-A full-stack web application that allows users to submit transcripts for summarization using the OpenAI API. Users can view and delete their past submissions.
+A full-stack web application that allows users to submit transcripts for summarization using the OpenAI API, users can also view and delete their past submissions.
 
-This project demonstrates expertise in building a complete end-to-end system with React (Tailwind CSS), Supabase, and Python FastAPI.
+This project highlights full-stack development skills - building a complete end-to-end system with React (Tailwind CSS), Supabase, and Python FastAPI.
+
+*link to access live app is in App Usage section*
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Features](#features)
-3. [Usage](#usage)
+3. [App Usage](#app-usage)
 4. [Technical Stack](#technical-stack)
 5. [Project Structure](#project-structure)
 
@@ -24,8 +26,6 @@ The project showcases:
 - A robust frontend built with React and styled using Tailwind CSS
 - A serverless backend using Python FastAPI hosted on Vercel
 - Real-time database interactions powered by Supabase
-  
-This project highlights full-stack development skills.
 <br>
 
 ![TSB App Sign-In Page](src/assets/fullstack-screenshots/TSBAppSignIn.png)
@@ -79,7 +79,7 @@ For viewing/testing purposes, use the following dummy account to log in:
 - **Password**: *welovecoding*
 
 ### Testing with a Sample Document
-You can download this sample document to upload in the app:
+You can download this sample document to upload in the app to have it summarized:
 [Download TSB Test Doc](/750wordTSBtestdoc_PElandscape.pdf)
 
 ### App Workflow
@@ -193,52 +193,52 @@ You can download this sample document to upload in the app:
 transcript-summarization-bot/
 ├── README.md                          # Project documentation
 ├── LICENSE                            # Project license
-├── package-lock.json                  # Dependency tree lock file
+├── package-lock.json                  
 ├── package.json                       # Project metadata and dependencies
-├── postcss.config.js                  # Configuration file for PostCSS
+├── postcss.config.js                  
 ├── .gitignore                         # Specifies files to exclude from GitHub
 ├── node_modules/                      # Contains all npm packages (a lot of files inside, omitted for brevity)
 ├── requirements.txt                   # Python dependencies for FastAPI and OpenAI
 ├── tailwind.config.js                 # Tailwind CSS configuration file
-├── tsconfig.json                      # TypeScript configuration file
+├── tsconfig.json                      
 ├── 750wordTSBtestdoc_PElandscape.pdf  # Example PDF file for testing
 ├── public/                            # Static files for the React app
-├── src/                               # Source code for the application
+├── src/                               
 │   ├── App.tsx                        # Main React app component
 │   ├── index.tsx                      # React app entry point
 │   ├── react-app-env.d.ts             # TypeScript environment definitions
 │   ├── reportWebVitals.ts             # Performance reporting for the app
 │   ├── setupTests.ts                  # Test setup file for Jest
 │   ├── assets/                        # Contains static assets like fonts, icons, and logos
-│   ├── components/                    # Reusable UI components
+│   ├── components/                    
 │   │   ├── Button.tsx                 # Custom button component
 │   │   ├── DeleteModal.tsx            # Modal for confirming deletions
 │   │   ├── FileUploaded.tsx           # Component for file upload success display
 │   │   ├── InputField.tsx             # Input field component
 │   │   ├── LibraryItemScroller.tsx    # Horizontal scroller for library items
-│   │   ├── LibrarySummaryEntry.tsx    # Individual summary entry in the library
-│   │   ├── LibraryTableHeading.tsx    # Header for the library table
-│   │   ├── NavBar.tsx                 # Navigation bar for the app
+│   │   ├── LibrarySummaryEntry.tsx    # Individual summary entries in the library
+│   │   ├── LibraryTableHeading.tsx    # Column headers for the library table
+│   │   ├── NavBar.tsx                 # Left navigation bar for the app
 │   │   ├── SummaryDetailStats.tsx     # Stats display for summary details
 │   │   ├── SummaryTextCard.tsx        # Formatted text display for summaries
 │   │   ├── UploadFile.tsx             # File upload interface
 │   │   ├── UploadingFile.tsx          # Loading animation during file upload
 │   │   └── UserProfile.tsx            # User profile display
-│   ├── layout/                        # Layout components for the app
+│   ├── layout/                        
 │   │   ├── AuthLayout.tsx             # Layout for authentication pages
 │   │   └── DashboardLayout.tsx        # Layout for dashboard pages
-│   ├── pages/                         # Pages corresponding to app routes
+│   ├── pages/                         
 │   │   ├── Library.tsx                # Library page showing past transcripts and summaries
 │   │   ├── SignIn.tsx                 # Sign-in page for users
 │   │   ├── SignUp.tsx                 # Sign-up page for new users
 │   │   ├── Summarize.tsx              # Transcript submission and summarization page
 │   │   └── SummaryDetail.tsx          # Page for detailed view of a summary
-│   ├── routes/                        # App routing configuration
+│   ├── routes/                        
 │   │   └── AppRouter.tsx              # Route definitions for the app
-│   ├── services/                      # API and backend service integrations
-│   ├── styles/                        # Global and component-specific styles
+│   ├── services/                     
+│   ├── styles/                        
 │   │   └── global.css                 # Global styles for the app
-│   └── utils/                         # Utility files for the app
+│   └── utils/                         
 │       ├── api.ts                     # API integration for data fetching
 │       ├── file_upload.py             # FastAPI backend for file upload and summarization
 │       └── supabaseClient.ts/         # Supabase client setup for authentication and database
