@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Space+Grotesk&display=swap');
+
+/* Import Nasalization font */
+@font-face {
+  font-family: 'Nasalization';
+  src: url('/src/assets/fonts/Nasalization.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply the fonts globally */
+body {
+  font-family: 'Poppins', 'Space Grotesk', sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Utility class for headings */
+.heading-font {
+  font-family: 'Nasalization', 'Space Grotesk', sans-serif;
+}
+
+/* Scrollbar settings */
+.scrollbar-none {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.json-pretty {
+  white-space: pre-wrap; /* Wrap lines */
+  word-break: break-word; /* Prevent long words from breaking layout */
+}
+
+

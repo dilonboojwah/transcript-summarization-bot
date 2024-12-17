@@ -1,26 +1,37 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    /* Basic Options */
+    "target": "ES2020",                      /* Specify ECMAScript target version */
+    "module": "ESNext",                      /* Use the appropriate module system for modern ES */
+    "jsx": "react-jsx",                      /* Use the modern JSX runtime for React */
+    "strict": true,                          /* Enable all strict type-checking options */
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",              /* Resolve modules like Node.js */
+    "esModuleInterop": true,                 /* Allow default imports from CommonJS modules */
+    "forceConsistentCasingInFileNames": true,/* Ensure consistent file naming across OS */
+    "allowSyntheticDefaultImports": true,    /* Allow default imports even if module lacks them */
+    "resolveJsonModule": true,               /* Allow importing .json files */
+
+    /* Paths and BaseURL */
+    "baseUrl": "./src",                      /* Set base URL for imports */
+    "paths": {
+      "*": ["node_modules/*", "src/*"]       /* Resolve modules and imports relative to src */
+    },
+
+    /* Output Options */
+    "outDir": "./dist",                      /* Output directory for compiled files */
+    "sourceMap": true,                       /* Generate source map files */
+
+    /* Type Checking Options */
+    "skipLibCheck": true,                    /* Skip type checking for declaration files */
+    "noImplicitAny": true,                   /* Warn on any `any` usage */
+    "strictNullChecks": true,                /* Strictly check null and undefined types */
+    "noUnusedLocals": true,                  /* Warn on unused local variables */
+    "noUnusedParameters": true,              /* Warn on unused function parameters */
+    "noImplicitReturns": true,               /* Ensure all code paths return a value */
+    "noFallthroughCasesInSwitch": true       /* Warn on fallthrough cases in switch statements */
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*"],                   /* Include all files in the src directory */
+  "exclude": ["node_modules", "dist"]        /* Exclude node_modules and output directory */
 }
