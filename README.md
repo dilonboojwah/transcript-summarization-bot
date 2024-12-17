@@ -1,6 +1,7 @@
 # Transcript Summarization Bot (TSB)
 
 A full-stack web application that allows users to submit transcripts for summarization using the OpenAI API. Users can view and delete their past submissions.
+
 This project demonstrates expertise in building a complete end-to-end system with React (Tailwind CSS), Supabase, and Python FastAPI.
 
 ## Table of Contents
@@ -65,12 +66,12 @@ This project highlights full-stack development skills.
 
 ---
 
-## Usage
+## App Usage
 
 ### Accessing the App
-The app is hosted on **Vercel** and can be accessed via the following link:
+The live app is hosted on **Vercel** and can be accessed via the following link:
 
-[**Transcript Summarization Bot on Vercel**](https://your-vercel-app.vercel.app)
+[**Transcript Summarization Bot on Vercel**](https://tsb-hazel.vercel.app/)
 
 ### Dummy Account Information
 For viewing/testing purposes, use the following dummy account to log in:
@@ -171,6 +172,9 @@ You can download this sample document to upload in the app:
 
 ### Hosting
 
+![TSB Vercel Backend](src/assets/fullstack-screenshots/TSBVercelBackend.png)  
+*Vercel frontend deployment configuration*
+
 | Component/Technology   | Description                                                                                   |
 |-------------------------|-----------------------------------------------------------------------------------------------|
 | **Vercel**              | Hosts the React frontend                                                                     |
@@ -178,6 +182,9 @@ You can download this sample document to upload in the app:
 
 - **Scalable Deployment**
   - Frontend and backend are decoupled for flexibility and scalability
+
+![TSB Render Backend](src/assets/fullstack-screenshots/TSBRenderBackend.png)  
+*Render backend deployment configuration*
 
 ---
 
