@@ -182,7 +182,7 @@ You can download this sample document to upload in the app:
 ---
 
 ## Project Structure
-
+```plaintext
 transcript-summarization-bot/
 ├── README.md                          # Project documentation
 ├── LICENSE                            # Project license
@@ -235,3 +235,4 @@ transcript-summarization-bot/
 │       ├── api.ts                     # API integration for data fetching
 │       ├── file_upload.py             # FastAPI backend for file upload and summarization
 │       └── supabaseClient.ts/         # Supabase client setup for authentication and database
+
