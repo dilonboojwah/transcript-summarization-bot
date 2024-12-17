@@ -38,7 +38,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ onConfirm, onCancel }) => {
           text="Cancel"
           onClick={onCancel}
           customBg={true} // Disable default gradient
-          className="w-[150px] bg-[#FCFCFD] text-[#0c111d] border border-purple-500 font-light"
+          className="w-[150px] bg-[#FCFCFD] text-[#161b26] border border-purple-500 font-light"
         />
       </div>
     </div>
