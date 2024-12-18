@@ -50,26 +50,33 @@ app.add_middleware(
 async def upload_file(file: UploadFile = File(...)) -> UploadResponse:
     try:
         # Log: File upload request received
-        logger.info("File upload request received.")
+        logger.info(f"File upload request received. File name: {file.filename}, Content type: {file.content_type}")
 
         # Validate file type
         if file.content_type not in ["application/pdf", "text/plain"]:
+            logger.error("Unsupported file type.")
             raise HTTPException(status_code=400, detail="Unsupported file type. Only PDF and TXT are allowed.")
 
         # Parse file text
         file_text = ""
         if file.content_type == "text/plain":
+            logger.info("Processing text file...")
             file_text = (await file.read()).decode("utf-8")
         elif file.content_type == "application/pdf":
+            logger.info("Processing PDF file...")
             reader = PdfReader(file.file)
             for page in reader.pages:
                 file_text += page.extract_text()
 
         if not file_text.strip():
+            logger.error("Failed to extract text from the file.")
             raise HTTPException(status_code=400, detail="Failed to extract text from the file.")
+
+        logger.info(f"Extracted text length: {len(file_text)}")
 
         # Calculate word count
         word_count = len(file_text.split())
+        logger.info(f"Word count calculated: {word_count}")
 
         # Summarize the text using OpenAI
         system_instructions = (
@@ -92,6 +99,7 @@ async def upload_file(file: UploadFile = File(...)) -> UploadResponse:
             f"{file_text}"
         )
 
+        logger.info("Sending request to OpenAI API for summarization...")
         try:
             response = client.chat.completions.create(
                 model="gpt-4o-mini",
@@ -103,10 +111,13 @@ async def upload_file(file: UploadFile = File(...)) -> UploadResponse:
                 temperature=0.7,
             )
             summary = response.choices[0].message.content.strip()
-        except Exception:
+            logger.info("OpenAI summarization successful.")
+        except Exception as e:
+            logger.error(f"OpenAI API error: {e}")
             raise HTTPException(status_code=500, detail="Failed to summarize text using OpenAI.")
 
         # Return the response with file details, parsed text, word count, and summary
+        logger.info("Returning summarization response.")
         return UploadResponse(
             file_name=file.filename,
             text=file_text,
@@ -114,6 +125,9 @@ async def upload_file(file: UploadFile = File(...)) -> UploadResponse:
             summary=summary,
             status="File uploaded, parsed, and summarized successfully",
         )
+    except HTTPException as he:
+        logger.error(f"HTTPException raised: {he.detail}")
+        raise
     except Exception as e:
-        logger.error(f"Unexpected error: {e}")
+        logger.error(f"Unexpected error occurred: {e}")
         raise HTTPException(status_code=500, detail="Unexpected error occurred.")

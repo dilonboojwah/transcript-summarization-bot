@@ -28,16 +28,21 @@ const Summarize: React.FC = () => {
 
   // Handle file upload
   const handleFileUpload = async (file: File) => {
+    console.log("Starting file upload process...");
+
     if (!file || !["application/pdf", "text/plain"].includes(file.type)) {
+      console.error("Unsupported file type:", file.type);
       alert("Only PDF or TXT files are supported.");
       return;
     }
 
+    console.log("File type is valid. Proceeding to upload.");
     setCurrentState("uploading");
 
     try {
       const appendedFileName = `${file.name}_${Date.now()}`;
       const filePath = `files/${appendedFileName}`;
+      console.log("Generated file path:", filePath);
 
       // Upload file to Supabase storage
       const { error: storageError } = await supabase.storage
@@ -45,21 +50,26 @@ const Summarize: React.FC = () => {
         .upload(filePath, file);
 
       if (storageError) {
-        console.error("Storage error:", storageError);
+        console.error("Supabase storage error:", storageError);
         throw new Error(`Error uploading file: ${storageError.message}`);
       }
 
-      console.log("File successfully uploaded to storage.");
+      console.log("File successfully uploaded to Supabase storage.");
 
       // Send file to FastAPI for parsing and summarization
       const formData = new FormData();
       formData.append("file", file);
 
+      console.log("Sending file to FastAPI for summarization...");
       const response = await fetch(`${process.env.TSB_BACKEND_URL}/upload`, // Replace with "http://127.0.0.1:8000/upload" if I want to test locally
-      { 
-        method: "POST",
-        body: formData,
-      });
+        { 
+         method: "POST",
+         body: formData,
+        });
+      // const response = await fetch("http://127.0.0.1:8000/upload", {
+      //   method: "POST",
+      //   body: formData,
+      // });
 
       if (!response.ok) {
         const errorDetails = await response.text();
@@ -67,34 +77,39 @@ const Summarize: React.FC = () => {
         throw new Error("Error parsing file via FastAPI.");
       }
 
+      console.log("Successfully received response from FastAPI.");
       const { text, word_count, summary } = await response.json();
+      console.log("Parsed text and summary:", { text, word_count, summary });
 
       // Save metadata and parsed data in Supabase summaries table
+      console.log("Saving metadata and parsed data to Supabase...");
       const { error: insertError } = await supabase.from("summaries").insert([
         {
           summary_id: crypto.randomUUID(),
-          user_id: userProfile?.userId, // Use userId from cached userProfile
+          user_id: userProfile?.userId,
           filename_appended: appendedFileName,
           uploaded_at: new Date().toISOString(),
-          original_text: text, // Parsed text from FastAPI
-          summary: summary, // Summary from FastAPI
-          word_count: word_count, // Word count from FastAPI
+          original_text: text,
+          summary: summary,
+          word_count: word_count,
         },
       ]);
 
       if (insertError) {
-        console.error("Insert error:", insertError);
+        console.error("Supabase insert error:", insertError);
         throw new Error(`Error inserting file metadata: ${insertError.message}`);
       }
 
-      console.log("File metadata and parsed text successfully stored in summaries table.");
+      console.log("File metadata and parsed text successfully stored in Supabase.");
 
       // Invalidate the library query to fetch the updated summaries
+      console.log("Invalidating query cache to fetch updated summaries...");
       queryClient.invalidateQueries({ queryKey: ["userProfileAndSummaries"] });
 
+      console.log("File upload process completed successfully.");
       setCurrentState("uploaded");
     } catch (error) {
-      console.error("Error during file upload:", error);
+      console.error("Error during file upload process:", error);
       alert("An error occurred during file upload. Please try again.");
       setCurrentState("upload");
     }
@@ -102,19 +117,22 @@ const Summarize: React.FC = () => {
 
   // Handle loading state
   if (isLoading) {
+    console.log("User profile is loading...");
     return (
       <DashboardLayout
-      username={username}
-      onLogout={async () => {
-        console.log("User logged out");
+        username={username}
+        onLogout={async () => {
+          console.log("User logged out");
         }}
       >
         <div className="flex justify-center items-center h-screen">
-          <p></p>
+          <p>Loading user profile...</p>
         </div>
       </DashboardLayout>
     );
   }
+
+  console.log("Current state:", currentState);
 
   return (
     <DashboardLayout
