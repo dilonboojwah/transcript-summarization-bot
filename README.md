@@ -73,7 +73,7 @@ The live app is hosted on **Vercel** and can be accessed via the following link:
 
 ### Dummy Account Login Info
 For viewing/testing purposes, use the following dummy account to log in:
-- **Email**: hashira@boojwah.com
+- **Email**: hashira
 - **Password**: *welovecoding*
 
 ### Testing with a Sample Document
