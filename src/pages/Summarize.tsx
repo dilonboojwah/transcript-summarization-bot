@@ -61,11 +61,18 @@ const Summarize: React.FC = () => {
       formData.append("file", file);
 
       console.log("Sending file to FastAPI for summarization...");
-      const response = await fetch(`${process.env.TSB_BACKEND_URL}/upload`, // Replace with "http://127.0.0.1:8000/upload" if I want to test locally
-        { 
-         method: "POST",
-         body: formData,
-        });
+      const backendUrl = process.env.REACT_APP_TSB_BACKEND_URL;
+      console.log("Backend URL:", backendUrl); // Debugging: Check if the URL is loaded
+      console.log(`Making POST request to: ${backendUrl}/upload`);
+      if (!backendUrl) {
+        throw new Error("Backend URL is not defined. Check your .env file and environment variables.");
+      }
+      
+      const response = await fetch(`${backendUrl}/upload`, {
+        method: "POST",
+        body: formData,
+      });
+      
       // const response = await fetch("http://127.0.0.1:8000/upload", {
       //   method: "POST",
       //   body: formData,
