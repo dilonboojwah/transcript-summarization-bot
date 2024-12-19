@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import logging
 import os
+import time
 
 # Load the .env file explicitly
 dotenv_path = "C:\\Users\\dusti\\OneDrive\\Desktop\\code\\tsb\\.env"
@@ -20,7 +21,7 @@ if not api_key:
 client = OpenAI(api_key=api_key)
 
 # Configure logging (for debugging purposes)
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 # Define a response model
@@ -40,6 +41,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",  # Frontend during development
         "https://tsb-hazel.vercel.app",  # Production Vercel frontend
+        "https://transcript-summarization-bot.vercel.app/", #Another Vercel domain
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -48,6 +50,7 @@ app.add_middleware(
 
 @app.post("/upload", response_model=UploadResponse)
 async def upload_file(file: UploadFile = File(...)) -> UploadResponse:
+    start_time = time.time()
     try:
         # Log: File upload request received
         logger.info(f"File upload request received. File name: {file.filename}, Content type: {file.content_type}")
@@ -56,6 +59,8 @@ async def upload_file(file: UploadFile = File(...)) -> UploadResponse:
         if file.content_type not in ["application/pdf", "text/plain"]:
             logger.error("Unsupported file type.")
             raise HTTPException(status_code=400, detail="Unsupported file type. Only PDF and TXT are allowed.")
+
+        logger.info("File type validation passed.")
 
         # Parse file text
         file_text = ""
@@ -66,13 +71,15 @@ async def upload_file(file: UploadFile = File(...)) -> UploadResponse:
             logger.info("Processing PDF file...")
             reader = PdfReader(file.file)
             for page in reader.pages:
-                file_text += page.extract_text()
+                extracted_text = page.extract_text()
+                logger.debug(f"Extracted text from page: {extracted_text[:100]}...")  # Log first 100 chars
+                file_text += extracted_text
 
         if not file_text.strip():
             logger.error("Failed to extract text from the file.")
             raise HTTPException(status_code=400, detail="Failed to extract text from the file.")
 
-        logger.info(f"Extracted text length: {len(file_text)}")
+        logger.info(f"Extracted text length: {len(file_text)} characters.")
 
         # Calculate word count
         word_count = len(file_text.split())
@@ -118,6 +125,8 @@ async def upload_file(file: UploadFile = File(...)) -> UploadResponse:
 
         # Return the response with file details, parsed text, word count, and summary
         logger.info("Returning summarization response.")
+        total_time = time.time() - start_time
+        logger.info(f"Total processing time: {total_time:.2f} seconds.")
         return UploadResponse(
             file_name=file.filename,
             text=file_text,

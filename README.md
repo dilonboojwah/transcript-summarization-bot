@@ -69,7 +69,7 @@ The project showcases:
 ### Accessing the App
 The live app is hosted on **Vercel** and can be accessed via the following link:
 
-[**Transcript Summarization Bot on Vercel**](https://tsb-hazel.vercel.app/)
+[**Transcript Summarization Bot on Vercel**](https://transcript-summarization-bot.vercel.app/)
 
 ### Dummy Account Login Info
 For viewing/testing purposes, use the following dummy account to log in:
