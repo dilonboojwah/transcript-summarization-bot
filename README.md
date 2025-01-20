@@ -168,6 +168,8 @@ You can download this sample document to upload in the app to have it summarized
 ![TSB Supabase Summaries Table](src/assets/fullstack-screenshots/TSBSupabaseSummaries.png)
 *Supabase 'summaries' table storing uploaded transcripts, summaries, and metadata*
 
+For the free version of Supabase, if there is inactivity for 7 days, then the project will pause. To counter this I set up an automatic ping to Supabase every 24 hours using UptimeRobot.
+
 ### Hosting
 
 ![TSB Vercel Backend](src/assets/fullstack-screenshots/TSBVercelBackend.png)  
