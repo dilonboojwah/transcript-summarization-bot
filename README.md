@@ -168,7 +168,7 @@ You can download this sample document to upload in the app to have it summarized
 ![TSB Supabase Summaries Table](src/assets/fullstack-screenshots/TSBSupabaseSummaries.png)
 *Supabase 'summaries' table storing uploaded transcripts, summaries, and metadata*
 
-For the free version of Supabase, if there is inactivity for 7 days, then the project will pause. To counter this I set up an automatic ping to Supabase every 24 hours using UptimeRobot.
+For the free version of Supabase, the project is paused after 7 days of inactivity. To prevent this, a scheduled [GitHub Actions workflow](.github/workflows/keep-supabase-alive.yml) runs a real query against the Supabase database twice a week (Mondays and Thursdays at 12:00 UTC), which resets the inactivity clock. The workflow is self-healing: it also writes a small heartbeat commit roughly once a month so GitHub never auto-disables the schedule after 60 days of repo inactivity. (This replaced an earlier UptimeRobot monitor that had stopped pinging.)
 
 ### Hosting
 
@@ -182,6 +182,9 @@ For the free version of Supabase, if there is inactivity for 7 days, then the pr
 
 - **Scalable Deployment**
   - Frontend and backend are decoupled for flexibility and scalability
+
+- **Vercel build note**
+  - `requirements.txt` (the backend's Python dependencies) lives in the repo root, so Vercel would otherwise try to `uv pip install` it during the frontend build. A [`.vercelignore`](.vercelignore) excludes it so Vercel builds only the React app.
 
 ![TSB Render Backend](src/assets/fullstack-screenshots/TSBRenderBackend.png)  
 *Render backend deployment configuration*
@@ -197,6 +200,10 @@ transcript-summarization-bot/
 ├── package.json                       # Project metadata and dependencies
 ├── postcss.config.js                  
 ├── .gitignore                         # Specifies files to exclude from GitHub
+├── .vercelignore                      # Excludes requirements.txt from the Vercel (frontend) build
+├── .github/
+│   └── workflows/
+│       └── keep-supabase-alive.yml    # Scheduled ping that keeps the free Supabase project active
 ├── node_modules/                      # Contains all npm packages (a lot of files inside, omitted for brevity)
 ├── requirements.txt                   # Python dependencies for FastAPI and OpenAI
 ├── tailwind.config.js                 # Tailwind CSS configuration file
