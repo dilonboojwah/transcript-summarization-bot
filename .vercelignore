@@ -1,0 +1,11 @@
+# This project's Vercel deployment is the React (Create React App) frontend
+# only. The Python dependencies in requirements.txt belong to the separate
+# FastAPI backend (deployed on Render), NOT to Vercel.
+#
+# Without this exclusion, Vercel auto-detects requirements.txt and runs
+# "uv pip install", which was failing on orjson==3.10.6 (a TOML parse error in
+# that package's source distribution) and breaking the frontend build.
+#
+# Excluding it here only changes what Vercel uploads — the file stays in the
+# repo for the Render backend.
+requirements.txt
