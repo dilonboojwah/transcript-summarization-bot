@@ -3,6 +3,11 @@ name: Keep Supabase Active
 # Pings the Supabase project on a schedule so the free-tier project is not
 # paused for inactivity. No app code is involved — this runs entirely on
 # GitHub's servers.
+#
+# It also writes a small "heartbeat" commit about once a month. GitHub
+# automatically disables scheduled workflows after 60 days of no repository
+# activity; the heartbeat keeps the repo active so this workflow never gets
+# turned off. Net result: fully hands-off, no third-party account needed.
 
 on:
   schedule:
@@ -10,10 +15,17 @@ on:
     - cron: "0 12 * * 1,4"
   workflow_dispatch: {} # lets you run it on demand from the Actions tab
 
+# Needed so the heartbeat step can push a commit back to the repo.
+permissions:
+  contents: write
+
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Ping Supabase REST API
         run: |
           # These two values are already public in the app's source
@@ -42,3 +54,29 @@ jobs:
             echo "No response from Supabase — possible network/project error."
             exit 1
           fi
+
+      - name: Heartbeat (keep this workflow from being auto-disabled)
+        run: |
+          HEARTBEAT_FILE=".github/last-keepalive.txt"
+
+          # Read the timestamp stored in the heartbeat file. If it is younger
+          # than 25 days we skip committing, so we never write more than ~1
+          # heartbeat commit per month.
+          now=$(date -u +%s)
+          last_str=$(grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9:]{8}Z' "$HEARTBEAT_FILE" 2>/dev/null | head -1)
+          last=$(date -u -d "$last_str" +%s 2>/dev/null || echo 0)
+          age_days=$(( (now - last) / 86400 ))
+          echo "Heartbeat is ${age_days} day(s) old."
+
+          if [ "$age_days" -lt 25 ]; then
+            echo "Recent enough — no heartbeat commit needed."
+            exit 0
+          fi
+
+          date -u +"Last keep-alive heartbeat: %Y-%m-%dT%H:%M:%SZ" > "$HEARTBEAT_FILE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$HEARTBEAT_FILE"
+          git commit -m "chore: keep-alive heartbeat [skip ci]"
+          git push
+          echo "Wrote heartbeat commit to keep the schedule alive."
