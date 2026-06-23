@@ -24,16 +24,20 @@ jobs:
           SUPABASE_URL="https://akinruqvrdxpkmjpzdll.supabase.co"
           SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFraW5ydXF2cmR4cGttanB6ZGxsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM3NjE4MTAsImV4cCI6MjA0OTMzNzgxMH0.UQjWqCdYluBoCwmJs40DpdmuBWBS0pPwnht_wkzpPgs"
 
+          # A plain "limit=1" query runs a real read against the Postgres
+          # database (the strongest "this project is in use" signal) and
+          # returns 200. We deliberately do NOT request a specific column so
+          # the ping never breaks if the schema changes.
           status=$(curl -s -o /dev/null -w "%{http_code}" \
-            "$SUPABASE_URL/rest/v1/summaries?select=id&limit=1" \
+            "$SUPABASE_URL/rest/v1/summaries?limit=1" \
             -H "apikey: $SUPABASE_ANON_KEY" \
             -H "Authorization: Bearer $SUPABASE_ANON_KEY")
 
           echo "Supabase responded with HTTP $status"
 
-          # Any HTTP response (even 401/403 from row-level security) means the
-          # project is awake and the request counted as activity. Only a real
-          # network failure (no response) should fail the job.
+          # Any HTTP response means the project is awake and the request
+          # counted as activity. Only a real network failure (no response at
+          # all) should fail the job.
           if [ -z "$status" ] || [ "$status" = "000" ]; then
             echo "No response from Supabase — possible network/project error."
             exit 1
